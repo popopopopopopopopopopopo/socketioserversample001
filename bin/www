@@ -21,18 +21,10 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-const io = require('socket.io').listen(server);
+const SockRepository = require('../SockRepository');
 
-io.sockets.on('connection', function(socket) {
-    socket.emit('myFitstRecieving', {
-        msg: 'Hello from Server!',
-        status: 'Connected.'
-    });
-
-    socket.on('myFirstSending', function(data) {
-        console.log('From client: ' + data.msg);
-    });
-});
+mySocket = new SockRepository(server);
+mySocket.listen();
 
 /**
  * Listen on provided port, on all network interfaces.
